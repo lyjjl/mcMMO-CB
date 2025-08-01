@@ -19,10 +19,10 @@ jobs:
     - uses: actions/checkout@v4
 
     # 1. 设置 JDK 21
-    - name: Set up JDK 21
+    - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '21' # 确保这里是 '21'
+        java-version: '17' # 确保这里是 '21'
         distribution: 'temurin'
         # server-id 和 settings-path 可以移除，因为我们不发布到 GitHub Packages
         # server-id: github
@@ -32,7 +32,7 @@ jobs:
       # mcMMO 的 pom.xml 使用 maven-assembly-plugin，其 goals 配置为 single。
       # 正常情况下，`mvn package` 就能触发 assembly 插件的 execution。
       # 如果仅仅 `mvn package` 没有生成预期的 JAR，可以尝试 `mvn clean install`。
-      run: mvn -B clean package --file pom.xml
+      run: mvn -B clean install --file pom.xml
 
     # 2. 移除发布到 GitHub Packages 的步骤 (如果之前有的话)
     # 你提供的原始配置中没有这一步，很好。
